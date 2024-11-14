@@ -8,9 +8,18 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        //Her var det noe med at man må bruke " på utsiden når det er ' på innsiden.
+        gradient: "url('/static/mesh-gradient.png')",  
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        purple: {
+          951: 'rgba(79, 70, 229, 1)'
+        },
+        gray: {
+          951: "hsla(0, 0%, 100%, 0.4);",
+          952: "#373b64",
+        }
       },
     },
   },
