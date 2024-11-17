@@ -1,11 +1,12 @@
 import React from 'react'
+import Link from 'next/link'
 
-export default function Page(props: {params: {id: string}}) {
-    const {params:{id}} = props
-    console.log('id', id);
+export default async function Page({params}: {params: Promise<{id: string}>}) {
+    const {id} = await params
   return (
     <div>
-      Coffee Store Page: {id}
+      Coffee Store Page: {id},
+      <Link href="/"><button>Home</button></Link>
     </div>
   )
 }
