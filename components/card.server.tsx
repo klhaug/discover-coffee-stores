@@ -33,3 +33,5 @@ export default function Card({ name, imgUrl, href }: CardType) {
       </Link>
     );
   }
+
+  
