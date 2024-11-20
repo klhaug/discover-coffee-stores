@@ -1,11 +1,8 @@
+import { CardType } from "@/types";
 import Image from "next/legacy/image"
 import Link from "next/link"
 
-type CardType = {
-    name: string;
-    imgUrl: string;
-    href: string;
-}
+
 
 export default function Card({ name, imgUrl, href }: CardType) {
     return (

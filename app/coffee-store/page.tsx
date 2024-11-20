@@ -6,7 +6,6 @@ export default function Page() {
     <div>
       Coffee Store Page
       <Link href="/">Home</Link>
-      <Link href="./asadf">Coffee</Link>
     </div>
   )
 }

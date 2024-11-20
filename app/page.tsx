@@ -1,13 +1,7 @@
 import Banner from "@/components/banner.client";
 import Card from "@/components/card.server";
 import { fetchCoffeeStores } from "@/lib/coffee-stores";
-
-type CoffeeStoreType = {
-  name: string,
-  imgUrl: string,
-  id: string,
-  address: string
-}
+import { CoffeeStoreType } from "@/types";
 
 async function getData() {
   return await fetchCoffeeStores();
@@ -15,35 +9,8 @@ async function getData() {
 
 export default async function Home() {
   const coffeeStores = await getData();
+  
 
-
-  // const coffeeStoreId = 'dark-horse-coffe'
-  // const coffeeStores = [
-  //   {
-  //       "name" : "Strangelove Coffee",
-  //       "imgUrl": '/static/bannerPic.webp'},
-  //   {
-  //       "name" : "WOWO Coffee",
-  //       "imgUrl": '/static/bannerPic.webp'},
-  //   {
-  //       "name" : "🐱Coffee",
-  //       "imgUrl": '/static/bannerPic.webp'},
-  //   {
-  //       "name" : "Strangelove Coffee",
-  //       "imgUrl": '/static/bannerPic.webp'},
-  //   {
-  //       "name" : "Strangelove Coffee",
-  //       "imgUrl": '/static/bannerPic.webp'},
-  //   {
-  //       "name" : "Strangelove Coffee",
-  //       "imgUrl": '/static/bannerPic.webp'},
-  //   {
-  //       "name" : "Strangelove Coffee",
-  //       "imgUrl": '/static/bannerPic.webp'},
-  //   {
-  //       "name" : "Strangelove Coffee",
-  //       "imgUrl": '/static/bannerPic.webp'},
-  // ]
  
   return (
     <div className="mb-56">
@@ -54,9 +21,9 @@ export default async function Home() {
             Kafèer på Hamar
           </h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-2 lg:grid-cols-3 lg:gap-6">
-            {coffeeStores.map((coffeeStore: CoffeeStoreType, idx: number) => (
+            {coffeeStores.map((coffeeStore: CoffeeStoreType) => (
               <Card
-                key={`${coffeeStore.name}-${idx}`}
+                key={`${coffeeStore.name}-${coffeeStore.id}`}
                 name= {coffeeStore.name}
                 imgUrl={coffeeStore.imgUrl}
                 href={`/coffee-store/${coffeeStore.id}`}
