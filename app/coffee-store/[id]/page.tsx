@@ -3,12 +3,17 @@ import Link from 'next/link'
 import { fetchCoffeeStore, fetchCoffeeStores } from '@/lib/coffee-stores';
 import Image from 'next/image';
 import { CoffeeStoreType } from '@/types';
+import { findRecordByFilter } from '@/lib/airtable';
 
 async function getData(id: string) {
-  return await fetchCoffeeStore(id); 
+  const coffeeStoreFromMapbox = await fetchCoffeeStore(id); 
+  const createCoffeeStore = findRecordByFilter(id);
+  return coffeeStoreFromMapbox;
 }
+
 export async function generateStaticParams() {
-  const coffeStores = await fetchCoffeeStores();
+  const HAMAR_LONG_LAT = "11.068475457052749, 60.79707707338185";
+  const coffeStores = await fetchCoffeeStores(HAMAR_LONG_LAT, 6);
 
   return coffeStores.map((coffeStore: CoffeeStoreType) => ({
     id: coffeStore.id
@@ -16,7 +21,7 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({params}: {params: Promise<{id: string}>}) {
-  const {id} = await params
+  const {id} = await params;
 
   const coffeeStore = await getData(id);
 
@@ -47,12 +52,12 @@ export default async function Page({params}: {params: Promise<{id: string}>}) {
         <div className={`glass mt-12 flex-col rounded-lg p-4 lg:mt-48`}>
           {address && (
             <div className="mb-4 flex">
-              <Image
+              {/* <Image
                 src="/static/icons/places.svg"
                 width="24"
                 height="24"
                 alt="places icon"
-              />
+              /> */}
               <p className="pl-2">{address}</p>
             </div>
           )}

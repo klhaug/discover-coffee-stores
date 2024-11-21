@@ -6,7 +6,7 @@ import Link from "next/link"
 
 export default function Card({ name, imgUrl, href }: CardType) {
     return (
-      <Link href={href} className="m-auto rounded-xl border-gray-400 shadow-2xl">
+      <Link href={href} className="m-auto rounded-xl border-gray-400 shadow-2x animate-scaleIn ">
         <div
           className={`glass min-h-[200px] rounded-xl px-5 pb-5 pt-1 backdrop-blur-3xl`}
         >

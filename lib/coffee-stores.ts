@@ -20,12 +20,12 @@ const transformSingleCoffeeData = (result: SingleCoffeeStoreType) => {
 
 
 
-export const fetchCoffeeStores = async () => {
+export const fetchCoffeeStores = async (longLat: string, limit: number) => {
     try{
-        const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/Cafe.json?proximity=11.061586906809314%2C60.797500998369294&access_token=${process.env.MAPBOX_API}`);
+        const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/Cafe.json?limit=${limit}&proximity=${longLat}&access_token=${process.env.MAPBOX_API}`);
         
         const data = await response.json();
-
+        // console.log(data)
         return data.features.map((result: MabboxType) => transformCoffeeData(result))
     } catch (error) {
         console.error("Error while fetching coffee stores", error)
@@ -38,7 +38,7 @@ export const fetchCoffeeStore = async (id: string) => {
         
         const data = await response.json();
 
-        const coffeeStore = data.features.map((result: SingleCoffeeStoreType) => transformSingleCoffeeData(result))
+        const coffeeStore = data.features.map((result: SingleCoffeeStoreType) => transformSingleCoffeeData(result))   
 
         return coffeeStore.length > 0 ? coffeeStore[0] : {};
         

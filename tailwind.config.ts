@@ -8,6 +8,15 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        scaleIn: {
+          '0%': {transform: 'scale(0)'},
+          '100%': {transform: 'scale(1)'}
+        },
+      },
+      animation: {
+        scaleIn: 'scaleIn 0.2s ease-in-out'
+      },
       backgroundImage: {
         //Her var det noe med at man må bruke " på utsiden når det er ' på innsiden.
         gradient: "url('/static/mesh-gradient.png')",  

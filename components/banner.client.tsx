@@ -7,7 +7,8 @@ export default function Banner(
     buttonText    
     }: {
     handleOnClick: MouseEventHandler<HTMLButtonElement> | undefined;
-    buttonText: string}) {
+    buttonText: string;
+    }) {
     
     return (
         <div className="mb-12 grid lg:mb-24 lg:grid-cols-2">
