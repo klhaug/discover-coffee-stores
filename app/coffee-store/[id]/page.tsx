@@ -3,13 +3,18 @@ import Link from 'next/link'
 import { fetchCoffeeStore, fetchCoffeeStores } from '@/lib/coffee-stores';
 import Image from 'next/image';
 import { CoffeeStoreType } from '@/types';
-import { findRecordByFilter } from '@/lib/airtable';
+import { createCoffeeStore } from '@/lib/airtable';
+import Upvote from '@/components/upvote.client';
 
 async function getData(id: string) {
   const coffeeStoreFromMapbox = await fetchCoffeeStore(id); 
-  const createCoffeeStore = findRecordByFilter(id);
-  return coffeeStoreFromMapbox;
-}
+  const _createCoffeeStore = await createCoffeeStore(coffeeStoreFromMapbox, id);
+
+  const voting = _createCoffeeStore ? _createCoffeeStore[0].voting : 0
+
+  return coffeeStoreFromMapbox ? {
+    ...coffeeStoreFromMapbox, voting, } : {}
+  };
 
 export async function generateStaticParams() {
   const HAMAR_LONG_LAT = "11.068475457052749, 60.79707707338185";
@@ -25,7 +30,7 @@ export default async function Page({params}: {params: Promise<{id: string}>}) {
 
   const coffeeStore = await getData(id);
 
-  const {name = '', address = '', imgUrl = ''} = coffeeStore;
+  const {name = '', address = '', imgUrl = '', voting} = coffeeStore;
   
   return (
     <div className="h-full pb-80">
@@ -52,16 +57,16 @@ export default async function Page({params}: {params: Promise<{id: string}>}) {
         <div className={`glass mt-12 flex-col rounded-lg p-4 lg:mt-48`}>
           {address && (
             <div className="mb-4 flex">
-              {/* <Image
+              <Image
                 src="/static/icons/places.svg"
                 width="24"
                 height="24"
                 alt="places icon"
-              /> */}
+              />
               <p className="pl-2">{address}</p>
             </div>
           )}
-          {/* <Upvote voting={voting} id={id} /> */}
+          <Upvote voting = {voting}/>
         </div>
       </div>
     </div>

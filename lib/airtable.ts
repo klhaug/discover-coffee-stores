@@ -1,4 +1,5 @@
-import { AirtableRecordType } from "@/types";
+import { AirtableRecordType, CoffeeStoreType } from "@/types";
+import { error, log } from "console";
 
 var Airtable = require('airtable');
 var base = new Airtable({apiKey: process.env.AIRTABLE_TOKEN}).base('appIWiiFIsRFjfsFJ');
@@ -6,31 +7,57 @@ var base = new Airtable({apiKey: process.env.AIRTABLE_TOKEN}).base('appIWiiFIsRF
 const table = base('coffeStoresDB')
 
 
-//findRecord
+const getMinifiedRecords = (records: Array<AirtableRecordType>) => {
+    return records.map((record: AirtableRecordType) => {
+        return {
+            recordId: record.id,
+            ...record.fields,
+        };
+    });
+};
 
-export const findRecordByFilter = async (id: string) => {
+const findRecordByFilter = async (id: string) => {
     const findRecords = await table
         .select({
             filterByFormula: `id="${id}"`
         })
         .firstPage();
 
-        const allRecords = findRecords.map((record: AirtableRecordType) => {
-            return {
-                recordId: record.id,
-                ...record.fields,
-            };
-        })
+        return getMinifiedRecords(findRecords);
 }
-//createRecord
 
-const createCoffeeStore = async(id: string) => {
+export const createCoffeeStore = async(coffeStore: CoffeeStoreType, id: string) => {
+
+    const {name, address, voting = 0, imgUrl} = coffeStore; 
     
-    const records = await findRecordByFilter(id);
-
-    if(records.length === 0 ) {
-        //create
-    } else {
-        //return
+    try {
+        if(id) {
+            const records = await findRecordByFilter(id);
+            if(records.length === 0 ) {
+            const createRecords = await table.create([{
+                fields: {
+                    id,
+                    name, 
+                    address, 
+                    voting,
+                    imgUrl
+                },
+            },
+        ]);
+        if (createRecords.length > 0) {
+            console.log("Created a store with ID", id);
+            return getMinifiedRecords(createRecords);
+            }
+        } else {
+            console.log("Coffe Store Exists")
+            return records;
+        }
+        } else {
+            console.error("ID does not exist",error)
+        } 
+    } catch(error) {
+        console.error("Error creating or finding a store", error)
     }
+    
+   
 };

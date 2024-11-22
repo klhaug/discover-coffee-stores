@@ -2,6 +2,7 @@ import Card from "@/components/card.server";
 import NearbyCoffeeStores from "@/components/nearby-coffee-stores.client";
 import { fetchCoffeeStores } from "@/lib/coffee-stores";
 import { CoffeeStoreType } from "@/types";
+import Image from "next/image";
 
 async function getData() {
   const HAMAR_LONG_LAT = "11.068475457052749, 60.79707707338185";
@@ -14,6 +15,11 @@ export default async function Home() {
 
   return (
     <div className="mb-56">
+      <Image className="absolute top-0 left-0 w-full h-full opacity-40"
+            src="/static/icons/group7.svg"
+            width="2000"
+            height="2000"
+            alt="places icon"/>
       <main className="mx-auto mt-10 max-w-6xl px-4">
         <NearbyCoffeeStores />
         <div className="mt-20">
