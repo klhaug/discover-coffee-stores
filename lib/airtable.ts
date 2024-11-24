@@ -62,8 +62,7 @@ export const createCoffeeStore = async(coffeStore: CoffeeStoreType, id: string) 
    
 };
 
-export const updateCoffeeStore = async( id: string) => {
-    
+export const updateCoffeeStore = async( id: string) => {  
     try {
         if(id) {
             const records = await findRecordByFilter(id);
@@ -80,7 +79,7 @@ export const updateCoffeeStore = async( id: string) => {
         ]);
         if (updatedRecords.length > 0) {
             console.log("Created a store with ID", id);
-            return getMinifiedRecords(createRecords);
+            return getMinifiedRecords(updatedRecords);
             }
         } else {
             console.log("Coffe Store Exists")

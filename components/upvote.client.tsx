@@ -2,14 +2,41 @@
 
 import { upvoteAction } from '@/actions';
 import Image from 'next/image'
-import React from 'react'
+import { useFormState, useFormStatus } from 'react-dom';
 
-export default function Upvote({voting}: {voting: number}) {
-    const handleOnClick = () => {
-        console.log("it's working")
-    }
+export function SubmitButton() {
+    const {pending} = useFormStatus();
+
     return (
-        <form action={upvoteAction}>
+         <button 
+            type='submit' 
+            disabled = {pending}
+            aria-disabled={pending}
+            className='min-w-[120px]'
+            >    
+            {pending ? <Image 
+                src='/static/icons/loading-spinner.svg' 
+                width="30" 
+                height="30" 
+                alt='reloading'
+                className='m-auto'
+                />
+                : "Up Vote!"}
+        </button>
+    )
+}
+
+export default function Upvote({voting, id}: {voting: number, id: string}) {
+
+    const initialState = {
+        id,
+        voting,
+    }
+
+    const [state, dispatch] = useFormState(upvoteAction, initialState);
+
+    return (
+        <form action={dispatch}>
             <div className='mb-6 flex'>
                 <Image 
                     src = "/static/icons/star.svg"
@@ -17,10 +44,10 @@ export default function Upvote({voting}: {voting: number}) {
                     height= "24"
                     alt = "star icon"
                 />
-                <p className='pl-2'>{voting}</p>
+                <p className='pl-2'>{state.voting}</p>
             </div>
 
-            <button onClick={handleOnClick}>Up Vote!</button>
+           <SubmitButton />
         </form>
     )
 }
