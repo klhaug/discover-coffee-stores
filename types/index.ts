@@ -33,3 +33,7 @@ export type AirtableRecordType = {
     recordId: string;
     fields: CoffeeStoreType;
 }
+
+export type ServerParamsType = {
+    params: { id: string }
+}

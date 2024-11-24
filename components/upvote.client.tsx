@@ -2,7 +2,8 @@
 
 import { upvoteAction } from '@/actions';
 import Image from 'next/image'
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 
 export function SubmitButton() {
     const {pending} = useFormStatus();
@@ -33,7 +34,7 @@ export default function Upvote({voting, id}: {voting: number, id: string}) {
         voting,
     }
 
-    const [state, dispatch] = useFormState(upvoteAction, initialState);
+    const [state, dispatch] = useActionState(upvoteAction, initialState);
 
     return (
         <form action={dispatch}>

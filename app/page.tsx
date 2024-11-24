@@ -5,6 +5,13 @@ import { CoffeeStoreType } from "@/types";
 import Image from "next/image";
 
 async function getData() {
+  if (
+    !process.env.MAPBOX_API ||
+    !process.env.AIRTABLE_TOKEN
+  ) {
+    throw new Error("One of the API keys is not configured.")
+  };
+
   const HAMAR_LONG_LAT = "11.068475457052749, 60.79707707338185";
   return await fetchCoffeeStores(HAMAR_LONG_LAT, 6);
 }

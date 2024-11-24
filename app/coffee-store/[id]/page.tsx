@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { fetchCoffeeStore, fetchCoffeeStores } from '@/lib/coffee-stores';
 import Image from 'next/image';
-import { CoffeeStoreType } from '@/types';
+import { CoffeeStoreType, ServerParamsType } from '@/types';
 import { createCoffeeStore } from '@/lib/airtable';
 import Upvote from '@/components/upvote.client';
 
@@ -24,6 +24,26 @@ export async function generateStaticParams() {
     id: coffeStore.id
   }))
 }
+
+export async function generateMetadata({params}: {params: Promise<{id: string}>}) {
+   const {id} = await params;
+    const coffeeStore = await fetchCoffeeStore(id); 
+    const { name = ""} = coffeeStore;
+    console.log(name)
+
+    return {
+      title: name,
+      description: `${name} - Coffee Store`,
+      // metadataBase: 'localhost:3000',
+      alternates: {
+        canonical: `/coffee-store/${id}`
+      }
+    }
+  };
+
+
+
+
 
 export default async function Page({params}: {params: Promise<{id: string}>}) {
   const {id} = await params;
