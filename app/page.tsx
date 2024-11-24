@@ -15,10 +15,10 @@ export default async function Home() {
 
   return (
     <div className="mb-56">
-      <Image className="absolute top-0 left-0 w-full h-full opacity-40"
+      <Image className="absolute top-0 left-0 opacity-5"
             src="/static/icons/group7.svg"
-            width="2000"
-            height="2000"
+            width="3900"
+            height="3000"
             alt="places icon"/>
       <main className="mx-auto mt-10 max-w-6xl px-4">
         <NearbyCoffeeStores />

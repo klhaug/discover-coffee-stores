@@ -61,3 +61,37 @@ export const createCoffeeStore = async(coffeStore: CoffeeStoreType, id: string) 
     
    
 };
+
+export const updateCoffeeStore = async( id: string) => {
+    
+    try {
+        if(id) {
+            const records = await findRecordByFilter(id);
+            if(records.length !== 0 ) {
+            const record = records[0];
+            const updatedVoting = record.voting + 1;
+
+            const updatedRecords = await table.update([
+                {id:record.recordId,
+                fields: {
+                    voting: updatedVoting
+                },
+            },
+        ]);
+        if (updatedRecords.length > 0) {
+            console.log("Created a store with ID", id);
+            return getMinifiedRecords(createRecords);
+            }
+        } else {
+            console.log("Coffe Store Exists")
+            return records;
+        }
+        } else {
+            console.error("ID does not exist",error)
+        } 
+    } catch(error) {
+        console.error("Error creating or finding a store", error)
+    }
+    
+   
+};
