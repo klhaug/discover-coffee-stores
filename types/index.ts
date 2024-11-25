@@ -30,7 +30,6 @@ export type CardType = {
 
 export type AirtableRecordType = {
     id: string;
-    recordId: string;
     fields: CoffeeStoreType;
 }
 

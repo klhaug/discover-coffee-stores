@@ -1,4 +1,5 @@
-import {  AirtableRecordType, CoffeeStoreType } from "@/types";
+import { AirtableRecordType, CoffeeStoreType } from "@/types";
+
 
 import Airtable from 'airtable';
 const base = new Airtable({apiKey: process.env.AIRTABLE_TOKEN}).base('appIWiiFIsRFjfsFJ');
@@ -22,10 +23,9 @@ const getMinifiedRecords = (records: Array<AirtableRecordType>) => {
       })
       .firstPage();
 
-    const mutableArray = [...findRecords] 
-    console.log("This is findRecords", mutableArray)
+    const mutableArray = Array.from(findRecords) as unknown as AirtableRecordType[]; 
   
-    return getMinifiedRecords(findRecords);
+    return getMinifiedRecords(mutableArray);
   };
   
   export const createCoffeeStore = async (
@@ -50,8 +50,9 @@ const getMinifiedRecords = (records: Array<AirtableRecordType>) => {
             },
           ]);
           if (createRecords.length > 0) {
+            const mutableArray = Array.from(createRecords) as unknown as AirtableRecordType[]; 
             console.log('Created a store with id', id);
-            return getMinifiedRecords(createRecords);
+            return getMinifiedRecords(mutableArray);
           }
         } else {
           console.log('Coffee store exists');
@@ -83,8 +84,9 @@ const getMinifiedRecords = (records: Array<AirtableRecordType>) => {
           ]);
   
           if (updatedRecords.length > 0) {
+            const mutableArray = Array.from(updatedRecords) as unknown as AirtableRecordType[]; 
             console.log('Created a store with id', id);
-            return getMinifiedRecords(updatedRecords);
+            return getMinifiedRecords(mutableArray);
           }
         } else {
           console.log('Coffee store does not exist');
