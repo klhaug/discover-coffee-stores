@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import {Roboto_Flex} from 'next/font/google';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
 
 
@@ -22,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${robotoFlex.className} antialiased`}
-      >
+      > <SpeedInsights />
         {children}
       </body>
     </html>
