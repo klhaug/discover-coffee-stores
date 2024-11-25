@@ -42,7 +42,7 @@
   }
 
   button {
-    @apply w-fit cursor-pointer rounded-lg border-0 bg-gray-400 px-6 py-4 text-lg text-white hover:bg-gray-700;
+    @apply w-fit cursor-pointer rounded-lg border-0 bg-black px-6 py-4 text-lg text-white hover:bg-orange-700;
   }
 
   button:focus {

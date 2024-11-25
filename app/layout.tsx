@@ -10,6 +10,7 @@ const robotoFlex = Roboto_Flex({
 export const metadata: Metadata = {
   title: "Coffee Connoiseur",
   description: "Discover your local coffee shops. An amazing way to get to know your local businesses!",
+  robots: 'index, follow'
 };
 
 export default function RootLayout({
