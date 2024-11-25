@@ -29,10 +29,12 @@ export function SubmitButton() {
 
 export default function Upvote({voting, id}: {voting: number, id: string}) {
 
-    const initialState = {
+    const initialState: {id:string; voting: number} | undefined = {
         id,
         voting,
     }
+
+
 
     const [state, dispatch] = useActionState(upvoteAction, initialState);
 
@@ -45,7 +47,7 @@ export default function Upvote({voting, id}: {voting: number, id: string}) {
                     height= "24"
                     alt = "star icon"
                 />
-                <p className='pl-2'>{state.voting}</p>
+                <p className='pl-2'>{state?.voting ?? 0}</p>
             </div>
 
            <SubmitButton />

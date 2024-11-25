@@ -2,8 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 import { fetchCoffeeStore, fetchCoffeeStores } from '@/lib/coffee-stores';
 import Image from 'next/image';
-import { CoffeeStoreType, ServerParamsType } from '@/types';
+import { CoffeeStoreType } from '@/types';
 import { createCoffeeStore } from '@/lib/airtable';
+import { getDomain } from '@/utils/index';
 import Upvote from '@/components/upvote.client';
 
 async function getData(id: string) {
@@ -34,7 +35,7 @@ export async function generateMetadata({params}: {params: Promise<{id: string}>}
     return {
       title: name,
       description: `${name} - Coffee Store`,
-      // metadataBase: 'localhost:3000',
+      metadataBase: getDomain(),
       alternates: {
         canonical: `/coffee-store/${id}`
       }
